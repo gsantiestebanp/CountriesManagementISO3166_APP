@@ -1,0 +1,8 @@
+﻿<Application
+    x:Class="CountriesManagementISO3166_APP.UWP.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CountriesManagementISO3166_APP.UWP"
+    RequestedTheme="Light">
+
+</Application>
