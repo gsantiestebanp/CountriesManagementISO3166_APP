@@ -1,9 +1,9 @@
 ﻿
 namespace CountriesManagementISO3166_APP.Views
 {
-    public partial class MainPage
+    public partial class CountryListPage
     {
-        public MainPage()
+        public CountryListPage()
         {
             InitializeComponent();
         }

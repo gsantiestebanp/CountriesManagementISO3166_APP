@@ -1,4 +1,3 @@
-using CountriesManagementISO3166_APP.ViewModels;
 using CountriesManagementISO3166_APP.Views;
 using Prism;
 using Prism.Ioc;
@@ -19,7 +18,7 @@ namespace CountriesManagementISO3166_APP
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("NavigationPage/CountryListPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -27,7 +26,9 @@ namespace CountriesManagementISO3166_APP
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<CountryListPage, CountryListPageViewModel>();
+            containerRegistry.RegisterForNavigation<PrismContentPage1, PrismContentPage1ViewModel>();
+            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
         }
     }
 }
