@@ -48,11 +48,15 @@
         <Label
             FontAttributes="Bold"
             Text="Observation"/>
-        <local:CustomEntry
+        <local:CustomEditor
             Text="{Binding Country.Observation}"
             Placeholder="Observation"/>
         <Button
             Text="Add Country"
+            Margin="0,10,0,0"
+            BackgroundColor="#00A5F2"
+            TextColor="White"
+            CornerRadius="10"
             Command="{Binding AddCountryCmd}"/>
     </StackLayout>
 </ContentPage>

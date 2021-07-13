@@ -90,6 +90,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Custom\CustomEditorRenderer.cs" />
     <Compile Include="Custom\CustomEntryRenderer.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="MainActivity.cs" />

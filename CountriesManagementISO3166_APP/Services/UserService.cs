@@ -32,6 +32,7 @@ namespace CountriesManagementISO3166_APP.Services
 
         public async Task DeleteCountryApi(CountryME country, Priority prioridad)
         {
+            bool response = false;
             Task task;
             try
             {
@@ -53,7 +54,7 @@ namespace CountriesManagementISO3166_APP.Services
 
                 if (CheckInternetAccess.CheckConnection())
                 {
-                     await Policy
+                    await Policy
                           .Handle<ApiException>()
                           .Or<WebException>()
                           .Or<TaskCanceledException>()
@@ -75,7 +76,6 @@ namespace CountriesManagementISO3166_APP.Services
             {
                 throw new Exception(ex.Message);
             }
-
         }
 
         public Task DeleteSubdivision(SubdivisionME subdivision)
@@ -160,16 +160,16 @@ namespace CountriesManagementISO3166_APP.Services
             throw new System.NotImplementedException();
         }
 
-        public async Task<bool> InsertCountry(CountryME country)
+        public async Task InsertCountry(CountryME country)
         {
             Priority prioridad = Priority.Explicit;
-            return await InsertCountryApi(country, prioridad);
+            await InsertCountryApi(country, prioridad);
         }
 
-        public async Task<bool> InsertCountryApi(CountryME country, Priority prioridad)
+        public async Task InsertCountryApi(CountryME country, Priority prioridad)
         {
             bool response = false;
-            Task<bool> task;
+            Task task;
             try
             {
                 switch (prioridad)
@@ -190,7 +190,7 @@ namespace CountriesManagementISO3166_APP.Services
 
                 if (CheckInternetAccess.CheckConnection())
                 {
-                    response = await Policy
+                    await Policy
                           .Handle<ApiException>()
                           .Or<WebException>()
                           .Or<TaskCanceledException>()
@@ -213,7 +213,6 @@ namespace CountriesManagementISO3166_APP.Services
                 throw new Exception(ex.Message);
             }
 
-            return response;
         }
 
         public Task<SubdivisionMS> InsertCountryApi(SubdivisionME subdivision)
@@ -286,7 +285,7 @@ namespace CountriesManagementISO3166_APP.Services
             throw new System.NotImplementedException();
         }
 
-        public Task<SubdivisionMS> InsertSubdivision(SubdivisionME subdivision)
+        public Task InsertSubdivision(SubdivisionME subdivision)
         {
             throw new NotImplementedException();
         }

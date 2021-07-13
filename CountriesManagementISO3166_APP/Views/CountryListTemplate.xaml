@@ -19,6 +19,7 @@
                     <Label
                         Grid.Column="0"
                         FontSize="18"
+                        FontAttributes="Bold"
                         VerticalTextAlignment="Center"
                         TextColor="#333"
                         Text="{Binding CommonName}"/>                   
