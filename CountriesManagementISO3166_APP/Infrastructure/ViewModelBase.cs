@@ -1,11 +1,7 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace CountriesManagementISO3166_APP.ViewModels
+namespace CountriesManagementISO3166_APP.Infrastructure
 {
     public class ViewModelBase : BindableBase, IInitialize, INavigationAware, IDestructible
     {
