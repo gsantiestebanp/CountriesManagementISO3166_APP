@@ -18,11 +18,13 @@ namespace CountriesManagementISO3166_APP.Droid
 
             base.OnCreate(savedInstanceState);
 
+            Xamarin.Forms.Forms.SetFlags(new string[] { "CollectionView_Experimental", "CarouselView_Experimental", "IndicatorView_Experimental", "SwipeView_Experimental" });
+
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             UserDialogs.Init(() => this);
             LoadApplication(new App(new AndroidInitializer()));
         }
-
+            
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);

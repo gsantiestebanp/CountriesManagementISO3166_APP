@@ -3,9 +3,11 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:prism="http://prismlibrary.com" 
-    xmlns:templates="clr-namespace:CountriesManagementISO3166_APP.Views"
+    xmlns:templates="clr-namespace:CountriesManagementISO3166_APP.Views" 
+    xmlns:behaviors="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
     prism:ViewModelLocator.AutowireViewModel="True"
-    x:Class="CountriesManagementISO3166_APP.Views.CountryListPage">
+    x:Class="CountriesManagementISO3166_APP.Views.CountryListPage"
+    Title="Listado de paises según ISO-3166">    
     <Grid BackgroundColor="#f3f1fb">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -20,6 +22,7 @@
                 <SearchBar
                     Placeholder="Buscar..."
                     FontSize="18"
+                    TextChanged="SearchBar_TextChanged"
                     HorizontalOptions="CenterAndExpand"
                     SearchCommand="{Binding SearchCountryCmd}"
                     Text="{Binding SearchParameter}"/>
@@ -30,12 +33,30 @@
                 HasUnevenRows="True"
                 ItemsSource="{Binding Countries}">
                 <ListView.Behaviors>
-                    
+                    <behaviors:SelectedItemBehavior Command="{Binding NavigateToSelectedCountryCmd}"/>
                 </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <templates:CountryListTemplate/>
+                            <SwipeView>
+                                <SwipeView.LeftItems>
+                                    <SwipeItems>
+                                        <SwipeItemView Invoked="SwipeItemView_Invoked">
+                                            <Grid
+                                                WidthRequest="100"
+                                                BackgroundColor="Transparent">                                                                                            
+                                                <Label  
+                                                    HorizontalTextAlignment="Center"
+                                                    VerticalTextAlignment="Center"
+                                                    FontAttributes="Bold"
+                                                    Text="Delete"                                                
+                                                    TextColor="#333"/>
+                                            </Grid>
+                                        </SwipeItemView>
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
+                                <templates:CountryListTemplate/>
+                            </SwipeView>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

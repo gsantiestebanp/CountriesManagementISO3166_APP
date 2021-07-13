@@ -25,7 +25,7 @@ namespace CountriesManagementISO3166_APP.Interfaces
         Task<List<CountryMS>> GetCountryByAlpha2Code(GetCountryByAlpha2CodeME alpha2Code);
 
         [Post("/api/Country/InsertCountry")]
-        Task<CountryMS> InsertCountry(CountryME country);
+        Task<bool> InsertCountry(CountryME country);
 
         [Post("/api/Country/UpdateCountry")]
         Task UpdateCountry(CountryME country);
@@ -40,6 +40,9 @@ namespace CountriesManagementISO3166_APP.Interfaces
 
         [Post("/api/Subdivision/GetSubdivisionById")]
         Task<List<SubdivisionMS>> GetSubdivisionById(GetSubdivisionByIdME subdivisionId);
+
+        [Get("/api/Subdivision/GetSubdivisionsByCountryId")]
+        Task<List<SubdivisionMS>> GetSubdivisionsByCountryId(int id);
 
         [Post("/api/Subdivision/InsertSubdivision")]
         Task<SubdivisionMS> InsertSubdivision(SubdivisionME subdivision);

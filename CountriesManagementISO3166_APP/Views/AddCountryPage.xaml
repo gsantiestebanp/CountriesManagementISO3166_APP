@@ -4,7 +4,8 @@
              xmlns:prism="http://prismlibrary.com" 
              xmlns:local="clr-namespace:CountriesManagementISO3166_APP.Controls"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="CountriesManagementISO3166_APP.Views.AddCountryPage">
+             x:Class="CountriesManagementISO3166_APP.Views.AddCountryPage"
+             Title="Agregar país">
     <StackLayout
         Margin="10">      
         <Label
@@ -17,24 +18,31 @@
             FontAttributes="Bold"
             Text="Iso name"/>
         <local:CustomEntry
+            TextTransform="Uppercase"
             Text="{Binding Country.IsoName}"
             Placeholder="Iso name"/>
         <Label
             FontAttributes="Bold"
             Text="Alpha 2 code"/>
         <local:CustomEntry
+            MaxLength="2" 
+            TextTransform="Lowercase"
             Text="{Binding Country.Alpha2Code}"
             Placeholder="Alpha 2 code"/>
-        <Label
+        <Label            
             FontAttributes="Bold"
             Text="Alpha 3 code"/>
         <local:CustomEntry
+            MaxLength="3"
+            TextTransform="Lowercase"
             Text="{Binding Country.Alpha3Code}"
             Placeholder="Alpha 3 code"/>
         <Label
             FontAttributes="Bold"
             Text="Numeric code"/>
         <local:CustomEntry
+            Keyboard="Numeric"
+            MaxLength="3"
             Text="{Binding Country.NumericCode}"
             Placeholder="Numeric code"/>
         <Label
