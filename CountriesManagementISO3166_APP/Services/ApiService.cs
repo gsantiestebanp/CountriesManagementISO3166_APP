@@ -1,4 +1,5 @@
-﻿using CountriesManagementISO3166_APP.Interfaces;
+﻿using CountriesManagementISO3166_APP.Infraestructure;
+using CountriesManagementISO3166_APP.Interfaces;
 using Fusillade;
 using ModernHttpClient;
 using Plugin.Connectivity;
@@ -12,19 +13,19 @@ namespace CountriesManagementISO3166_APP.Services
     public class ApiService<T> : IApiService<T>
     {
         private readonly Func<HttpMessageHandler, T> createClient;
+        
         public ApiService(string apiBaseAddress)
         {
             createClient = messageHandler =>
-            {              
+            {
                 HttpClient client = new HttpClient()
                 {
                     BaseAddress = new Uri(apiBaseAddress)
                 };
 
-                //if (DatosGlobales.Obtiene().Token != null)
-                //client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", DatosGlobales.Obtiene().Token); 
-                
-                client.DefaultRequestHeaders.Add("User-Agent", "App Movil");
+                if (GlobalProperties.Get().Token != null)
+                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", GlobalProperties.Get().Token);
+
                 return RestService.For<T>(client);
             };
         }
