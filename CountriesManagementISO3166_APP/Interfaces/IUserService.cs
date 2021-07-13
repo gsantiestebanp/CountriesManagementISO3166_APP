@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace CountriesManagementISO3166_APP.Interfaces
 {
     [Headers("Content-Type: application/json")]
-
     public interface IUserService
     {
         #region Login

@@ -61,7 +61,7 @@ namespace CountriesManagementISO3166_APP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://localhost:44303.
+        ///   Looks up a localized string similar to http://10.0.2.2:3042.
         /// </summary>
         internal static string ApiUrl {
             get {

@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ApiUrl" xml:space="preserve">
-    <value>https://localhost:44303</value>
+    <value>http://10.0.2.2:3042</value>
   </data>
 </root>
