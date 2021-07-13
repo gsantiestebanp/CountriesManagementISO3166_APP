@@ -34,10 +34,62 @@ namespace CountriesManagementISO3166_APP.Services
             throw new System.NotImplementedException();
         }
 
-        public Task<List<CountryMS>> GetCountries()
+        public async Task<List<CountryMS>> GetCountries()
         {
-            throw new System.NotImplementedException();
+            Priority prioridad = Priority.Explicit;
+            return await GetCountriesApi(prioridad);
         }
+
+        private async Task<List<CountryMS>> GetCountriesApi(Priority prioridad)
+        {
+            List<CountryMS> response = new List<CountryMS>();
+            Task<List<CountryMS>> task;
+            try
+            {
+                switch (prioridad)
+                {
+                    case Priority.Background:
+                        task = ApiService.Background.GetCountries();
+                        break;
+                    case Priority.UserInitiated:
+                        task = ApiService.UserInitiated.GetCountries();
+                        break;
+                    case Priority.Speculative:
+                        task = ApiService.Speculative.GetCountries();
+                        break;
+                    default:
+                        task = ApiService.UserInitiated.GetCountries();
+                        break;
+                }
+
+                if (CheckInternetAccess.CheckConnection())
+                {
+                    response = await Policy
+                          .Handle<ApiException>()
+                          .Or<WebException>()
+                          .Or<TaskCanceledException>()
+                          .RetryAsync(retryCount: 2)
+                          .ExecuteAsync(async () => await task);
+                }
+
+            }
+            catch (ApiException ex)
+            {
+                var message = JsonConvert.DeserializeObject<ErrorMessage>(ex.Content);
+                throw new Exception(message.InnerException.ExceptionMessage);
+            }
+            catch (WebException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return response;
+        }
+
 
         public Task<List<CountryMS>> GetCountryByAlpha2Code(GetCountryByAlpha2CodeME alpha2Code)
         {

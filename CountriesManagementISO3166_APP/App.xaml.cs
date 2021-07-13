@@ -34,6 +34,7 @@ namespace CountriesManagementISO3166_APP
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<CountryListPage, CountryListPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
+            containerRegistry.RegisterForNavigation<AddCountryPage, AddCountryPageViewModel>();
         }
     }
 }
