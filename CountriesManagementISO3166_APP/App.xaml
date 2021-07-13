@@ -5,7 +5,73 @@
              x:Class="CountriesManagementISO3166_APP.App">
   <Application.Resources>
 
-    <!-- Application resource dictionary -->
+        <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeBrands">
+            <On Platform="Android" Value="FontAwesome5Brands.otf#Regular" />
+            <On Platform="iOS" Value="FontAwesome5Brands-Regular" />
+        </OnPlatform>
 
-  </Application.Resources>
+        <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeSolid">
+            <On Platform="Android" Value="FontAwesome5Solid.otf#Regular" />
+            <On Platform="iOS" Value="FontAwesome5FreeSolid" />
+        </OnPlatform>
+
+        <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeRegular">
+            <On Platform="Android" Value="FontAwesome5Regular.otf#Regular" />
+            <On Platform="iOS" Value="FontAwesome5FreeRegular" />
+        </OnPlatform>
+
+        <OnPlatform x:Key="MaterialFont" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Material Design Icons" />
+            <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons" />
+        </OnPlatform>
+
+        <OnPlatform x:Key="SamanthaFont" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="samantha" />
+            <On Platform="Android" Value="samantha.ttf#samantha" />
+        </OnPlatform>
+
+        <OnPlatform x:Key="OpenSansRegular" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="OpenSansRegular" />
+            <On Platform="Android" Value="OpenSansRegular.ttf#Regular" />
+        </OnPlatform>
+
+        <OnPlatform x:Key="PoppinsRegular" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="PoppinsRegular" />
+            <On Platform="Android" Value="PoppinsRegular.ttf#Regular" />
+        </OnPlatform>
+
+        <OnPlatform x:Key="PoppinsBold" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Poppins-Bold" />
+            <On Platform="Android" Value="PoppinsBold.ttf#Bold" />
+        </OnPlatform>
+
+        <OnPlatform x:Key="PoppinsLight" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Poppins-Light" />
+            <On Platform="Android" Value="Poppins-Light.ttf#Poppins" />
+        </OnPlatform>
+
+        <OnPlatform x:Key="PoppinsMedium" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Poppins-Medium" />
+            <On Platform="Android" Value="Poppins-Medium.ttf#Poppins" />
+        </OnPlatform>
+
+        <OnPlatform x:Key="PoppinsSemiBold" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Poppins-SemiBold" />
+            <On Platform="Android" Value="Poppins-SemiBold.ttf#Poppins" />
+        </OnPlatform>
+
+        <Style x:Key="floating_button" TargetType="{x:Type Button}">
+            <Setter Property="CornerRadius" Value="65" />
+            <Setter Property="HeightRequest" Value="65" />
+            <Setter Property="WidthRequest" Value="65" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="BorderColor" Value="Gray" />
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="BackgroundColor" Value="#EFEFEF" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="Opacity" Value="0.8" />
+            <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}" />
+        </Style>
+
+    </Application.Resources>
 </prism:PrismApplication>

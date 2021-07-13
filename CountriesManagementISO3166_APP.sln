@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountriesManagementISO3166_APP", "CountriesManagementISO3166_APP\CountriesManagementISO3166_APP.csproj", "{43DC59FD-8ED1-4816-BD3E-22C4E3D0C1B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountriesManagementISO3166_APP", "CountriesManagementISO3166_APP\CountriesManagementISO3166_APP.csproj", "{43DC59FD-8ED1-4816-BD3E-22C4E3D0C1B7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountriesManagementISO3166_APP.Android", "CountriesManagementISO3166_APP.Android\CountriesManagementISO3166_APP.Android.csproj", "{F6612F9B-9E95-4018-AC71-CB09E1152943}"
 EndProject

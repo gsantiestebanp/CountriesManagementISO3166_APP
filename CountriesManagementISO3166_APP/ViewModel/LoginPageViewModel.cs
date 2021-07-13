@@ -63,7 +63,7 @@ namespace CountriesManagementISO3166_APP.ViewModel
                             data.Add();
 
                             IsBusy = false;
-                            await _navigationService.NavigateAsync("NavigationPage/CountryListPage");
+                            await _navigationService.NavigateAsync("CountryListPage");
                         }
                         else
                         {
