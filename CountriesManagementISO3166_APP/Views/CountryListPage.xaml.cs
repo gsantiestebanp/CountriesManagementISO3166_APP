@@ -21,5 +21,12 @@ namespace CountriesManagementISO3166_APP.Views
 
             MessagingCenter.Send(country, "Delete");
         }
+
+        private void SwipeItemView_Invoked_1(object sender, System.EventArgs e)
+        {
+            var country = ((SwipeItemView)sender).BindingContext as CountryDTO;
+
+            MessagingCenter.Send(country, "Edit");
+        }
     }
 }

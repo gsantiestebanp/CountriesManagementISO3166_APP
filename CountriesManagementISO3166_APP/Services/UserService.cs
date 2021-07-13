@@ -30,13 +30,12 @@ namespace CountriesManagementISO3166_APP.Services
             await DeleteCountryApi(country, prioridad);
         }
 
-        public async Task DeleteCountryApi(CountryME country, Priority prioridad)
+        public async Task DeleteCountryApi(CountryME country, Priority prority)
         {
-            bool response = false;
             Task task;
             try
             {
-                switch (prioridad)
+                switch (prority)
                 {
                     case Priority.Background:
                         task = ApiService.Background.DeleteCountry(country);
@@ -89,13 +88,13 @@ namespace CountriesManagementISO3166_APP.Services
             return await GetCountriesApi(prioridad);
         }
 
-        private async Task<List<CountryMS>> GetCountriesApi(Priority prioridad)
+        private async Task<List<CountryMS>> GetCountriesApi(Priority priority)
         {
             List<CountryMS> response = new List<CountryMS>();
             Task<List<CountryMS>> task;
             try
             {
-                switch (prioridad)
+                switch (priority)
                 {
                     case Priority.Background:
                         task = ApiService.Background.GetCountries();
@@ -166,13 +165,12 @@ namespace CountriesManagementISO3166_APP.Services
             await InsertCountryApi(country, prioridad);
         }
 
-        public async Task InsertCountryApi(CountryME country, Priority prioridad)
+        public async Task InsertCountryApi(CountryME country, Priority priority)
         {
-            bool response = false;
             Task task;
             try
             {
-                switch (prioridad)
+                switch (priority)
                 {
                     case Priority.Background:
                         task = ApiService.Background.InsertCountry(country);

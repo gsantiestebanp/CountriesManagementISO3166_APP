@@ -1,6 +1,7 @@
 ﻿using Acr.UserDialogs;
 using CountriesManagementISO3166_APP.Dtos;
 using CountriesManagementISO3166_APP.Interfaces;
+using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
@@ -12,8 +13,10 @@ namespace CountriesManagementISO3166_APP.ViewModel
         public readonly INavigationService _navigationService;
         public readonly IUserDialogs _userDialogs;
         public readonly IUserService _userService;
-        public CountryDTO Country { get; set; }
 
+        public DelegateCommand NavigateAddSubdivisionCmd { get; set; }
+
+        public CountryDTO Country { get; set; }
         public ObservableCollection<SubdivisionDTO> Subdivisions { get; set; }
 
         public CountryDetailPageViewModel(INavigationService navigationService, IUserService userService,
@@ -28,6 +31,23 @@ namespace CountriesManagementISO3166_APP.ViewModel
             Subdivisions = new ObservableCollection<SubdivisionDTO>();
 
             Subdivisions = new ObservableCollection<SubdivisionDTO>();
+
+            NavigateAddSubdivisionCmd = new DelegateCommand(NavigateAddSubdivisionExecute);
+
+        }
+
+        private async void NavigateAddSubdivisionExecute()
+        {
+            if (IsBusy) return;
+            IsBusy = true;
+
+            var navigationParams = new NavigationParameters
+            {
+                { "CountryId", Country.CountryId },
+            };
+
+            IsBusy = false;
+            await _navigationService.NavigateAsync("AddSubdivisionPage", navigationParams);
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)

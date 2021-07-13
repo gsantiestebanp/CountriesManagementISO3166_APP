@@ -10,49 +10,58 @@
         Margin="10">      
         <Label
             FontAttributes="Bold"
-            Text="Common name"/>
+            Text="Nombre común"/>
         <local:CustomEntry
             Text="{Binding Country.CommonName}"
-            Placeholder="Common name"/>
+            Placeholder="Nombre común"/>
         <Label
             FontAttributes="Bold"
-            Text="Iso name"/>
+            Text="Nombre ISO"/>
         <local:CustomEntry
             TextTransform="Uppercase"
             Text="{Binding Country.IsoName}"
-            Placeholder="Iso name"/>
+            Placeholder="Nombre ISO"/>
         <Label
             FontAttributes="Bold"
-            Text="Alpha 2 code"/>
+            Text="Código Alpha 2"/>
         <local:CustomEntry
             MaxLength="2" 
             TextTransform="Lowercase"
             Text="{Binding Country.Alpha2Code}"
-            Placeholder="Alpha 2 code"/>
+            Placeholder="Código Alpha 2"/>
         <Label            
             FontAttributes="Bold"
-            Text="Alpha 3 code"/>
+            Text="Código Alpha 3"/>
         <local:CustomEntry
             MaxLength="3"
             TextTransform="Lowercase"
             Text="{Binding Country.Alpha3Code}"
-            Placeholder="Alpha 3 code"/>
+            Placeholder="Código Alpha 3"/>
         <Label
             FontAttributes="Bold"
-            Text="Numeric code"/>
+            Text="Código numérico"/>
         <local:CustomEntry
             Keyboard="Numeric"
             MaxLength="3"
             Text="{Binding Country.NumericCode}"
-            Placeholder="Numeric code"/>
+            Placeholder="Código numérico"/>
         <Label
             FontAttributes="Bold"
-            Text="Observation"/>
+            Text="Observaciones"/>
         <local:CustomEditor
             Text="{Binding Country.Observation}"
-            Placeholder="Observation"/>
+            Placeholder="Observaciones"/>
         <Button
-            Text="Add Country"
+            IsVisible="{Binding IsEnableAddButton}"
+            Text="Añadir país"
+            Margin="0,10,0,0"
+            BackgroundColor="#00A5F2"
+            TextColor="White"
+            CornerRadius="10"
+            Command="{Binding AddCountryCmd}"/>
+        <Button
+            IsVisible="{Binding IsEnableEditButton}"
+            Text="Editar país"
             Margin="0,10,0,0"
             BackgroundColor="#00A5F2"
             TextColor="White"

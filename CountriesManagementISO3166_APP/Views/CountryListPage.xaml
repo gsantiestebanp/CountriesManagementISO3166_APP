@@ -44,13 +44,35 @@
                                         <SwipeItemView Invoked="SwipeItemView_Invoked">
                                             <Grid
                                                 WidthRequest="100"
-                                                BackgroundColor="Transparent">                                                                                            
+                                                BackgroundColor="Transparent">
+                                                <BoxView 
+                                                    CornerRadius="10"
+                                                    Margin="5,7,5,7"
+                                                    BackgroundColor="#00A5F2"/>
                                                 <Label  
                                                     HorizontalTextAlignment="Center"
                                                     VerticalTextAlignment="Center"
                                                     FontAttributes="Bold"
-                                                    Text="Delete"                                                
-                                                    TextColor="#333"/>
+                                                    FontSize="18"
+                                                    Text="Borrar"                                                
+                                                    TextColor="White"/>
+                                            </Grid>
+                                        </SwipeItemView>
+                                        <SwipeItemView Invoked="SwipeItemView_Invoked_1">
+                                            <Grid
+                                                WidthRequest="100"
+                                                BackgroundColor="Transparent">
+                                                <BoxView 
+                                                    CornerRadius="10"
+                                                    Margin="5,7,5,7"
+                                                    BackgroundColor="#00A5F2"/>
+                                                <Label  
+                                                    HorizontalTextAlignment="Center"
+                                                    VerticalTextAlignment="Center"
+                                                    FontAttributes="Bold"
+                                                    FontSize="18"
+                                                    Text="Editar"                                                
+                                                    TextColor="White"/>
                                             </Grid>
                                         </SwipeItemView>
                                     </SwipeItems>

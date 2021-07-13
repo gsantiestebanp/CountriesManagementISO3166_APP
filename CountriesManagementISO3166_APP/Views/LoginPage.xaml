@@ -30,11 +30,11 @@
             Padding="20">
             <local:CustomEntry  
                 Keyboard="Email"
-                Placeholder="Email"
+                Placeholder="Correo electrónico"
                 Text="{Binding Email}"/>
             <local:CustomEntry 
                 IsPassword="True"
-                Placeholder="Password"
+                Placeholder="Contraseña"
                 Text="{Binding Password}"/>
             <Button 
                 Margin="0,10,0,0"

@@ -50,6 +50,25 @@ namespace CountriesManagementISO3166_APP.ViewModel
             {
                 DeleteCountryExecute(country);
             });
+
+            MessagingCenter.Subscribe<CountryDTO>(this, "Edit", (country) =>
+            {
+                EditCountryExecute(country);
+            });
+        }
+
+        private async void EditCountryExecute(CountryDTO country)
+        {
+            if (IsBusy) return;
+            IsBusy = true;
+
+            var navigationParams = new NavigationParameters
+            {
+                { "Country", country },
+            };
+
+            IsBusy = false;
+            await _navigationService.NavigateAsync("AddCountryPage", navigationParams);
         }
 
         private async void DeleteCountryExecute(CountryDTO country)

@@ -12,19 +12,81 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackLayout 
+            Padding="5"
             Margin="0" 
             Grid.Row="0">
             <Frame
-                Padding="0,10,0,10"
                 CornerRadius="10"
                 BackgroundColor="White">
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
                     <Label
+                        Grid.Row="0"
+                        FontAttributes="Bold"
+                        TextColor="#333"
                         Grid.Column="0"
                         Text="Nombre común:"/>
                     <Label
+                        Grid.Row="0"
                         Grid.Column="1"
                         Text="{Binding Country.CommonName}"/>
+                    <Label
+                        Grid.Row="1"
+                        TextColor="#333"
+                        FontAttributes="Bold"
+                        Grid.Column="0"
+                        Text="Nombre ISO:"/>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Text="{Binding Country.IsoName}"/>
+                    <Label
+                        Grid.Row="2"
+                        TextColor="#333"
+                        FontAttributes="Bold"
+                        Grid.Column="0"
+                        Text="Código alfanumérico 2:"/>
+                    <Label 
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Text="{Binding Country.Alpha2Code}"/>
+                    <Label
+                        Grid.Row="3"
+                        TextColor="#333"
+                        FontAttributes="Bold"
+                        Grid.Column="0"
+                        Text="Código alfanumérico 3:"/>
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Text="{Binding Country.Alpha3Code}"/>
+                    <Label
+                        Grid.Row="4"
+                        TextColor="#333"
+                        FontAttributes="Bold"
+                        Grid.Column="0"
+                        Text="Código numérico:"/>
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Text="{Binding Country.NumericCode}"/>
+                    <Label
+                        Grid.Row="5"
+                        TextColor="#333"
+                        FontAttributes="Bold"
+                        Grid.Column="0"
+                        Text="Cantidad de subdivisiones:"/>
+                    <Label
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Text="{Binding Country.NumberSubdivisions}"/>
                 </Grid>
             </Frame>
             <ListView
@@ -48,6 +110,6 @@
             HorizontalOptions="EndAndExpand"   
             Text="&#xf067;"
             Style="{StaticResource floating_button}"
-            Command="{Binding NavigateAddSubdivisionCmd}"/>
+            Command="{Binding NavigateAddSubdivisionCmd}"/>       
     </Grid>
 </ContentPage>
