@@ -7,10 +7,12 @@ using CountriesManagementISO3166_APP.Services;
 using FluentValidation.Results;
 using Prism.Commands;
 using Prism.Navigation;
+using PropertyChanged;
 using System;
 
 namespace CountriesManagementISO3166_APP.ViewModel
 {
+    [AddINotifyPropertyChangedInterfaceAttribute]
     public class AddCountryPageViewModel : ViewModelBase, INavigatedAware
     {
         public readonly INavigationService _navigationService;
@@ -18,6 +20,7 @@ namespace CountriesManagementISO3166_APP.ViewModel
         public readonly IUserService _userService;
 
         public DelegateCommand AddCountryCmd { get; set; }
+        public DelegateCommand EditCountryCmd { get; set; }
 
         public CountryDTO Country { get; set; }
 
@@ -38,6 +41,56 @@ namespace CountriesManagementISO3166_APP.ViewModel
             Country = new CountryDTO();
 
             AddCountryCmd = new DelegateCommand(AddCountryExecute);
+            EditCountryCmd = new DelegateCommand(EditCountryExecute);
+        }
+
+        private async void EditCountryExecute()
+        {
+            if (IsBusy) return;
+            IsBusy = true;
+
+            try
+            {
+                if (CheckInternetAccess.CheckConnection())
+                {
+                    CountryDTOValidator countryValidador = new CountryDTOValidator();
+                    ValidationResult validationResult = countryValidador.Validate(Country);
+
+                    if (validationResult.IsValid)
+                    {
+                        CountryME country = new CountryME()
+                        {
+                            CountryId = Country.CountryId,
+                            CommonName = Country.CommonName,
+                            IsoName = Country.IsoName,
+                            Alpha2Code = Country.Alpha2Code,
+                            Alpha3Code = Country.Alpha3Code,
+                            NumberSubdivisions = Country.NumberSubdivisions,
+                            NumericCode = Country.NumericCode,
+                            Observation = Country.Observation
+                        };
+
+                        await _userService.UpdateCountry(country);
+                        await _navigationService.GoBackAsync();
+                    }
+                    else
+                    {
+                        IsBusy = false;
+                        await _userDialogs.AlertAsync(ValidationErrors.Unfolds(validationResult));
+                    }
+                }
+                else
+                {
+                    IsBusy = false;
+                    await _userDialogs.AlertAsync("No tiene acceso a internet", "No hay internet");
+                }
+                IsBusy = false;
+            }
+            catch (Exception e)
+            {
+                IsBusy = false;
+                _userDialogs.Toast(e.Message);
+            }
         }
 
         private async void AddCountryExecute()
@@ -67,7 +120,7 @@ namespace CountriesManagementISO3166_APP.ViewModel
                         };
 
                         await _userService.InsertCountry(country);
-                        await _navigationService.NavigateAsync("CountryListPage");
+                        await _navigationService.GoBackAsync();
                     }
                     else
                     {
