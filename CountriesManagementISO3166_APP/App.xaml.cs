@@ -6,6 +6,8 @@ using CountriesManagementISO3166_APP.Views;
 using Prism;
 using Prism.Ioc;
 using Prism.Unity;
+using Xamarin.Essentials.Implementation;
+using Xamarin.Essentials.Interfaces;
 using Xamarin.Forms;
 
 namespace CountriesManagementISO3166_APP
@@ -26,6 +28,7 @@ namespace CountriesManagementISO3166_APP
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterInstance(UserDialogs.Instance);
 
@@ -35,6 +38,8 @@ namespace CountriesManagementISO3166_APP
             containerRegistry.RegisterForNavigation<CountryListPage, CountryListPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<AddCountryPage, AddCountryPageViewModel>();
+            containerRegistry.RegisterForNavigation<CountryDetailPage, CountryDetailPageViewModel>();
+            containerRegistry.RegisterForNavigation<AddSubdivisionPage, AddSubdivisionPageViewModel>();
         }
     }
 }

@@ -20,6 +20,10 @@ namespace CountriesManagementISO3166_APP.Dtos
         public CountryDTOValidator()
         {
             RuleFor(x => x.CommonName).NotNull().NotEmpty().WithMessage("*Ingrese el nombre común del país");
+            RuleFor(x => x.IsoName).NotNull().NotEmpty().WithMessage("*Ingrese el nombre según norma ISO 3166-1 del país");
+            RuleFor(x => x.Alpha2Code).NotNull().NotEmpty().WithMessage("*Ingrese el código afanumérico 2 según norma ISO 3166-1 del país");
+            RuleFor(x => x.Alpha3Code).NotNull().NotEmpty().WithMessage("*Ingrese el código afanumérico 3 según norma ISO 3166-1 del país");
+            RuleFor(x => x.NumericCode).NotNull().NotEmpty().WithMessage("*Ingrese el código numérico según norma ISO 3166-1 del país");
         }
     }
 }

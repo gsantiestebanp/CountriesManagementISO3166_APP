@@ -5,7 +5,7 @@ using Prism.Navigation;
 
 namespace CountriesManagementISO3166_APP.ViewModel
 {
-    public class ViewModelBase : BindableBase, IInitialize, IDestructible
+    public class ViewModelBase : BindableBase, IDestructible, IConfirmNavigation, IInitialize
     {
         protected INavigationService NavigationService { get; private set; }
         protected IUserDialogs UserDialogs { get; }
@@ -25,14 +25,19 @@ namespace CountriesManagementISO3166_APP.ViewModel
             UserDialogs = userDialogs;
         }
 
-        public virtual void Initialize(INavigationParameters parameters)
+        public void Initialize(INavigationParameters parameters)
         {
-
-        }     
-
-        public virtual void Destroy()
-        {
-
+            // Method intentionally left empty.
         }
-    }
+
+        public bool CanNavigate(INavigationParameters parameters)
+        {
+            return true;
+        }
+
+        public void Destroy()
+        {
+            // Method intentionally left empty.
+        }
+    }  
 }

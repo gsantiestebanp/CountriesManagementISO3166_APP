@@ -25,12 +25,12 @@ namespace CountriesManagementISO3166_APP.Interfaces
         Task<List<CountryMS>> GetCountryByAlpha2Code(GetCountryByAlpha2CodeME alpha2Code);
 
         [Post("/api/Country/InsertCountry")]
-        Task<CountryMS> InsertCountry(CountryME country);
+        Task InsertCountry(CountryME country);
 
-        [Post("/api/Country/UpdateCountry")]
+        [Put("/api/Country/UpdateCountry")]
         Task UpdateCountry(CountryME country);
 
-        [Post("/api/Country/DeleteCountry")]
+        [Delete("/api/Country/DeleteCountry")]
         Task DeleteCountry(CountryME country);
         #endregion
 
@@ -41,13 +41,16 @@ namespace CountriesManagementISO3166_APP.Interfaces
         [Post("/api/Subdivision/GetSubdivisionById")]
         Task<List<SubdivisionMS>> GetSubdivisionById(GetSubdivisionByIdME subdivisionId);
 
-        [Post("/api/Subdivision/InsertSubdivision")]
-        Task<SubdivisionMS> InsertSubdivision(SubdivisionME subdivision);
+        [Get("/api/Subdivision/GetSubdivisionsByCountryId")]
+        Task<List<SubdivisionMS>> GetSubdivisionsByCountryId(int id);
 
-        [Post("/api/Subdivision/UpdateSubdivision")]
+        [Post("/api/Subdivision/InsertSubdivision")]
+        Task InsertSubdivision(SubdivisionME subdivision);
+
+        [Put("/api/Subdivision/UpdateSubdivision")]
         Task UpdateSubdivision(SubdivisionME subdivision);
 
-        [Post("/api/Subdivision/DeleteSubdivision")]
+        [Delete("/api/Subdivision/DeleteSubdivision")]
         Task DeleteSubdivision(SubdivisionME subdivision);
         #endregion
     }

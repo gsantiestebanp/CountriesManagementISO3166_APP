@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using CountriesManagementISO3166_APP.Dtos;
+using Xamarin.Forms;
 
 namespace CountriesManagementISO3166_APP.Views
 {
@@ -7,6 +8,25 @@ namespace CountriesManagementISO3166_APP.Views
         public CountryListPage()
         {
             InitializeComponent();
+        }
+
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            MessagingCenter.Send<object>(this, "Search");
+        }
+
+        private void SwipeItemView_Invoked(object sender, System.EventArgs e)
+        {
+            var country = ((SwipeItemView)sender).BindingContext as CountryDTO;
+
+            MessagingCenter.Send(country, "Delete");
+        }
+
+        private void SwipeItemView_Invoked_1(object sender, System.EventArgs e)
+        {
+            var country = ((SwipeItemView)sender).BindingContext as CountryDTO;
+
+            MessagingCenter.Send(country, "Edit");
         }
     }
 }

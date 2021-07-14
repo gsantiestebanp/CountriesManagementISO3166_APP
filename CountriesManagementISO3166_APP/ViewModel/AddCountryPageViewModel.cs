@@ -1,13 +1,13 @@
 ﻿using Acr.UserDialogs;
 using CountriesManagementISO3166_APP.Dtos;
+using CountriesManagementISO3166_APP.Entities.Request;
 using CountriesManagementISO3166_APP.Infrastructure;
 using CountriesManagementISO3166_APP.Interfaces;
+using CountriesManagementISO3166_APP.Services;
 using FluentValidation.Results;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CountriesManagementISO3166_APP.ViewModel
 {
@@ -21,6 +21,9 @@ namespace CountriesManagementISO3166_APP.ViewModel
 
         public CountryDTO Country { get; set; }
 
+        public bool IsEnableEditButton { get; set; }
+        public bool IsEnableAddButton { get; set; }
+
         public AddCountryPageViewModel(INavigationService navigationService, IUserService userService,
             IUserDialogs userDialogs)
             : base(navigationService, userDialogs)
@@ -28,6 +31,9 @@ namespace CountriesManagementISO3166_APP.ViewModel
             _navigationService = navigationService;
             _userDialogs = userDialogs;
             _userService = userService;
+
+            IsEnableAddButton = true;
+            IsEnableEditButton = false;
 
             Country = new CountryDTO();
 
@@ -41,18 +47,40 @@ namespace CountriesManagementISO3166_APP.ViewModel
 
             try
             {
-                CountryDTOValidator countryValidador = new CountryDTOValidator();
-                ValidationResult validationResult = countryValidador.Validate(Country);
-
-                if (validationResult.IsValid)
+                if (CheckInternetAccess.CheckConnection())
                 {
+                    CountryDTOValidator countryValidador = new CountryDTOValidator();
+                    ValidationResult validationResult = countryValidador.Validate(Country);
 
+                    if (validationResult.IsValid)
+                    {
+                        CountryME country = new CountryME()
+                        {
+                            CountryId = Country.CountryId,
+                            CommonName = Country.CommonName,
+                            IsoName = Country.IsoName,
+                            Alpha2Code = Country.Alpha2Code,
+                            Alpha3Code = Country.Alpha3Code,
+                            NumberSubdivisions = Country.NumberSubdivisions,
+                            NumericCode = Country.NumericCode,
+                            Observation = Country.Observation
+                        };
+
+                        await _userService.InsertCountry(country);
+                        await _navigationService.NavigateAsync("CountryListPage");
+                    }
+                    else
+                    {
+                        IsBusy = false;
+                        await _userDialogs.AlertAsync(ValidationErrors.Unfolds(validationResult));
+                    }
                 }
                 else
                 {
                     IsBusy = false;
-                    await _userDialogs.AlertAsync(ValidationErrors.Unfolds(validationResult));
+                    await _userDialogs.AlertAsync("No tiene acceso a internet", "No hay internet");
                 }
+                IsBusy = false;
             }
             catch (Exception e)
             {
@@ -68,7 +96,28 @@ namespace CountriesManagementISO3166_APP.ViewModel
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
-            // Method intentionally left empty.
+            if (parameters.ContainsKey("Country"))
+            {
+                Country = parameters["Country"] as CountryDTO;
+                IsEnableEditButton = true;
+                IsEnableAddButton = false;
+                GetData();
+            }
+        }
+
+        private void GetData()
+        {
+            Country = new CountryDTO()
+            {
+                CountryId = Country.CountryId,
+                CommonName = Country.CommonName,
+                Alpha2Code = Country.Alpha2Code,
+                Alpha3Code = Country.Alpha3Code,
+                IsoName = Country.IsoName,
+                NumberSubdivisions = Country.NumberSubdivisions,
+                NumericCode = Country.NumericCode,
+                Observation = Country.Observation
+            };
         }
     }
 }
