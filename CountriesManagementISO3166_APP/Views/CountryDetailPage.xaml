@@ -93,11 +93,80 @@
                 Grid.Row="1"
                 SeparatorVisibility="None"
                 HasUnevenRows="True"
-                ItemsSource="{Binding Subdivisions}">                
+                ItemsSource="{Binding Subdivisions}">
+                <ListView.Header>
+                    <StackLayout                             
+                        Margin="0,0,0,10">
+                        <Label
+                            HorizontalOptions="Center"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            Text="Subdivisiones"/>
+                        <BoxView BackgroundColor="Gray" HeightRequest="1" Opacity="0.5"/>
+                    </StackLayout>
+                </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <templates:SubdivisionsListTemplate/>
+                            <SwipeView>
+                                <SwipeView.LeftItems>
+                                    <SwipeItems>
+                                        <SwipeItemView Invoked="SwipeItemView_Invoked">
+                                            <Grid
+                                                WidthRequest="100"
+                                                BackgroundColor="Transparent">
+                                                <BoxView 
+                                                    CornerRadius="10"
+                                                    Margin="5,7,5,7"
+                                                    BackgroundColor="#00A5F2"/>
+                                                <Label  
+                                                    HorizontalTextAlignment="Center"
+                                                    VerticalTextAlignment="Center"
+                                                    FontAttributes="Bold"
+                                                    FontSize="18"
+                                                    Text="Editar"                                                
+                                                    TextColor="White"/>
+                                            </Grid>
+                                        </SwipeItemView>                                        
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
+                                <Frame
+                                    Padding="10"
+                                    HasShadow="True"
+                                    CornerRadius="10"
+                                    BackgroundColor="White">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label
+                                            Grid.Row="0"
+                                            VerticalTextAlignment="Center"
+                                            Grid.Column="0"
+                                            Text="Nombre:"/>
+                                        <Label         
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            FontSize="18"
+                                            VerticalTextAlignment="Center"
+                                            TextColor="#333"
+                                            Text="{Binding Name}"/>
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            VerticalTextAlignment="Center"
+                                            Text="Código:"/>
+                                        <Label   
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            FontSize="18"
+                                            VerticalTextAlignment="Center"
+                                            TextColor="#333"
+                                            Text="{Binding SubdivisionCode}"/>
+                                    </Grid>
+                                </Frame>
+                            </SwipeView>                                
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

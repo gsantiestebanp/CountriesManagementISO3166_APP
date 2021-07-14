@@ -66,6 +66,6 @@
             BackgroundColor="#00A5F2"
             TextColor="White"
             CornerRadius="10"
-            Command="{Binding AddCountryCmd}"/>
+            Command="{Binding EditCountryCmd}"/>
     </StackLayout>
 </ContentPage>

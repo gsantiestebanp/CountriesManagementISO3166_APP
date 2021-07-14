@@ -13,8 +13,8 @@
                 HasShadow="True">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
                     </Grid.ColumnDefinitions>
                     <Label
                         Grid.Column="0"

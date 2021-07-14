@@ -324,15 +324,114 @@ namespace CountriesManagementISO3166_APP.Services
             return response;
         }
 
-        public Task UpdateCountry(CountryME country)
+        public async Task UpdateCountry(CountryME country)
         {
-            throw new System.NotImplementedException();
+            Priority prioridad = Priority.Explicit;
+            await UpdateCountryApi(country, prioridad);
         }
 
-        public Task UpdateSubdivision(SubdivisionME subdivision)
+        public async Task UpdateCountryApi(CountryME country, Priority priority)
         {
-            throw new System.NotImplementedException();
+            Task task;
+            try
+            {
+                switch (priority)
+                {
+                    case Priority.Background:
+                        task = ApiService.Background.UpdateCountry(country);
+                        break;
+                    case Priority.UserInitiated:
+                        task = ApiService.UserInitiated.UpdateCountry(country);
+                        break;
+                    case Priority.Speculative:
+                        task = ApiService.Speculative.UpdateCountry(country);
+                        break;
+                    default:
+                        task = ApiService.UserInitiated.UpdateCountry(country);
+                        break;
+                }
+
+                if (CheckInternetAccess.CheckConnection())
+                {
+                    await Policy
+                          .Handle<ApiException>()
+                          .Or<WebException>()
+                          .Or<TaskCanceledException>()
+                          .RetryAsync(retryCount: 2)
+                          .ExecuteAsync(async () => await task);
+                }
+
+            }
+            catch (ApiException ex)
+            {
+                var message = JsonConvert.DeserializeObject<ErrorMessage>(ex.Content);
+                throw new Exception(message.InnerException.ExceptionMessage);
+            }
+            catch (WebException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
+
+
+        public async Task UpdateSubdivision(SubdivisionME subdivision)
+        {
+            Priority prioridad = Priority.Explicit;
+            await UpdateSubdivisionApi(subdivision, prioridad);
+        }
+
+        public async Task UpdateSubdivisionApi(SubdivisionME subdivision, Priority priority)
+        {
+            Task task;
+            try
+            {
+                switch (priority)
+                {
+                    case Priority.Background:
+                        task = ApiService.Background.UpdateSubdivision(subdivision);
+                        break;
+                    case Priority.UserInitiated:
+                        task = ApiService.UserInitiated.UpdateSubdivision(subdivision);
+                        break;
+                    case Priority.Speculative:
+                        task = ApiService.Speculative.UpdateSubdivision(subdivision);
+                        break;
+                    default:
+                        task = ApiService.UserInitiated.UpdateSubdivision(subdivision);
+                        break;
+                }
+
+                if (CheckInternetAccess.CheckConnection())
+                {
+                    await Policy
+                          .Handle<ApiException>()
+                          .Or<WebException>()
+                          .Or<TaskCanceledException>()
+                          .RetryAsync(retryCount: 2)
+                          .ExecuteAsync(async () => await task);
+                }
+
+            }
+            catch (ApiException ex)
+            {
+                var message = JsonConvert.DeserializeObject<ErrorMessage>(ex.Content);
+                throw new Exception(message.InnerException.ExceptionMessage);
+            }
+            catch (WebException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }  
 
         public async Task InsertSubdivision(SubdivisionME subdivision)
         {

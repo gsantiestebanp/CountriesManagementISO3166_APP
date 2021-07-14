@@ -23,11 +23,20 @@
             Text="{Binding Subdivision.SubdivisionCode}"
             Placeholder="Código de subdivisión"/>        
         <Button
+            IsVisible="{Binding IsEnableAddButton}"
             Text="Añadir Subdivisión"
             Margin="0,10,0,0"
             BackgroundColor="#00A5F2"
             TextColor="White"
             CornerRadius="10"
             Command="{Binding AddSubdivisionCmd}"/>
+        <Button
+            IsVisible="{Binding IsEnableEditButton}"
+            Text="Editar Subdivisión"
+            Margin="0,10,0,0"
+            BackgroundColor="#00A5F2"
+            TextColor="White"
+            CornerRadius="10"
+            Command="{Binding EditSubdivisionCmd}"/>
     </StackLayout>
 </ContentPage>

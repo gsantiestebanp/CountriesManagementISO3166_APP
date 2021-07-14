@@ -3,11 +3,14 @@ using CountriesManagementISO3166_APP.Dtos;
 using CountriesManagementISO3166_APP.Interfaces;
 using Prism.Commands;
 using Prism.Navigation;
+using PropertyChanged;
 using System;
 using System.Collections.ObjectModel;
+using Xamarin.Forms;
 
 namespace CountriesManagementISO3166_APP.ViewModel
 {
+    [AddINotifyPropertyChangedInterfaceAttribute]
     public class CountryDetailPageViewModel : ViewModelBase, INavigatedAware
     {
         public readonly INavigationService _navigationService;
@@ -34,6 +37,25 @@ namespace CountriesManagementISO3166_APP.ViewModel
 
             NavigateAddSubdivisionCmd = new DelegateCommand(NavigateAddSubdivisionExecute);
 
+            MessagingCenter.Subscribe<SubdivisionDTO>(this, "Edit", (subdivision) =>
+            {
+                EditSubdivisionExecute(subdivision);
+            });
+
+        }
+
+        private async void EditSubdivisionExecute(SubdivisionDTO subdivision)
+        {
+            if (IsBusy) return;
+            IsBusy = true;
+
+            var navigationParams = new NavigationParameters
+            {
+                { "Subdivision", subdivision },
+            };
+
+            IsBusy = false;
+            await _navigationService.NavigateAsync("AddSubdivisionPage", navigationParams);
         }
 
         private async void NavigateAddSubdivisionExecute()
