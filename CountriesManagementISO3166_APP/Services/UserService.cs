@@ -154,13 +154,64 @@ namespace CountriesManagementISO3166_APP.Services
             throw new System.NotImplementedException();
         }
 
-        public Task<List<SubdivisionMS>> GetSubdivisions()
+        public async Task<List<SubdivisionMS>> GetSubdivisions()
         {
-            throw new System.NotImplementedException();
+            Priority prioridad = Priority.Explicit;
+            return await GetSubdivisionsApi(prioridad);
+        }
+
+        private async Task<List<SubdivisionMS>> GetSubdivisionsApi(Priority priority)
+        {
+            List<SubdivisionMS> response = new List<SubdivisionMS>();
+            Task<List<SubdivisionMS>> task;
+            try
+            {
+                switch (priority)
+                {
+                    case Priority.Background:
+                        task = ApiService.Background.GetSubdivisions();
+                        break;
+                    case Priority.UserInitiated:
+                        task = ApiService.UserInitiated.GetSubdivisions();
+                        break;
+                    case Priority.Speculative:
+                        task = ApiService.Speculative.GetSubdivisions();
+                        break;
+                    default:
+                        task = ApiService.UserInitiated.GetSubdivisions();
+                        break;
+                }
+
+                if (CheckInternetAccess.CheckConnection())
+                {
+                    response = await Policy
+                          .Handle<ApiException>()
+                          .Or<WebException>()
+                          .Or<TaskCanceledException>()
+                          .RetryAsync(retryCount: 2)
+                          .ExecuteAsync(async () => await task);
+                }
+
+            }
+            catch (ApiException ex)
+            {
+                var message = JsonConvert.DeserializeObject<ErrorMessage>(ex.Content);
+                throw new Exception(message.InnerException.ExceptionMessage);
+            }
+            catch (WebException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return response;
         }
 
         public async Task InsertCountry(CountryME country)
-        {
+        {           
             Priority prioridad = Priority.Explicit;
             await InsertCountryApi(country, prioridad);
         }
@@ -283,9 +334,58 @@ namespace CountriesManagementISO3166_APP.Services
             throw new System.NotImplementedException();
         }
 
-        public Task InsertSubdivision(SubdivisionME subdivision)
+        public async Task InsertSubdivision(SubdivisionME subdivision)
         {
-            throw new NotImplementedException();
+            Priority prioridad = Priority.Explicit;
+            await InsertSubdivisionApi(subdivision, prioridad);
+        }
+
+        public async Task InsertSubdivisionApi(SubdivisionME subdivision, Priority priority)
+        {
+            Task task;
+            try
+            {
+                switch (priority)
+                {
+                    case Priority.Background:
+                        task = ApiService.Background.InsertSubdivision(subdivision);
+                        break;
+                    case Priority.UserInitiated:
+                        task = ApiService.UserInitiated.InsertSubdivision(subdivision);
+                        break;
+                    case Priority.Speculative:
+                        task = ApiService.Speculative.InsertSubdivision(subdivision);
+                        break;
+                    default:
+                        task = ApiService.UserInitiated.InsertSubdivision(subdivision);
+                        break;
+                }
+
+                if (CheckInternetAccess.CheckConnection())
+                {
+                    await Policy
+                          .Handle<ApiException>()
+                          .Or<WebException>()
+                          .Or<TaskCanceledException>()
+                          .RetryAsync(retryCount: 2)
+                          .ExecuteAsync(async () => await task);
+                }
+
+            }
+            catch (ApiException ex)
+            {
+                var message = JsonConvert.DeserializeObject<ErrorMessage>(ex.Content);
+                throw new Exception(message.InnerException.ExceptionMessage);
+            }
+            catch (WebException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
 
         public async Task<List<SubdivisionMS>> GetSubdivisionsByCountryId(int id)

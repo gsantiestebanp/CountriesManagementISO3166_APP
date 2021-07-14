@@ -130,7 +130,7 @@ namespace CountriesManagementISO3166_APP.ViewModel
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
-            throw new NotImplementedException();
+            // Method intentionally left empty.
         }
 
         public void OnNavigatedTo(INavigationParameters parameters)

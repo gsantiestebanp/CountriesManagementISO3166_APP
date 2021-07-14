@@ -52,14 +52,14 @@ namespace CountriesManagementISO3166_APP.ViewModel
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
-            throw new NotImplementedException();
+            // Method intentionally left empty.
         }
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters.ContainsKey("Country"))
             {
-                Country = parameters["Country"] as CountryDTO;               
+                Country = parameters["Country"] as CountryDTO;
                 GetData();
             }
         }
